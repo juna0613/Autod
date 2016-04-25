@@ -21,11 +21,11 @@ namespace Autod.Core
 		{
 			var stack = AadCalculationStack.Instance;
 			var data = stack.Data.ToArray();
-			var vals = new List<double> (Index + 1);
+            var vals = new double[Index + 1];
 			vals [Index] = 1.0;
 			for (var i = 1; i <= data.Length; ++i) 
 			{
-				var derivData = data [data.Length - i];
+                var derivData = data [data.Length - i];
 				if (derivData.DerivTarget <= Index) 
 				{
 					vals [derivData.DerivBy] += derivData.Value * vals [derivData.DerivTarget];
@@ -95,7 +95,8 @@ namespace Autod.Core
 		}
 		public int NewIndex()
 		{
-			return _numOfVariables++;
+			_numOfVariables++;
+            return _numOfVariables;
 		}
 		private List<AadDerivData> _values = new List<AadDerivData>();
 		public void Add(int derivByIndex, int derivTargetIndex, double value)
