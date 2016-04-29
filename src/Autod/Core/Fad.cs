@@ -42,19 +42,9 @@ namespace Autod.Core
             return new Fad(left.Value / right.Value, left.Derivative / right.Value - left.Value * right.Derivative / right.Value / right.Value);
         }
 
-        public static implicit operator Fad(double v)
+        public static implicit operator Fad(double d)
         {
-            return new Fad(v);
-        }
-
-        public static implicit operator Fad(int v)
-        {
-            return new Fad(v);
-        }
-
-        public static implicit operator Fad(float v)
-        {
-            return new Fad(v);
+            return new Fad(d);
         }
 
         public static Fad Exp(Fad x)
@@ -87,5 +77,14 @@ namespace Autod.Core
             return new Fad(Math.Tan(x.Value), 1.0 + Math.Tan(x.Value) * Math.Tan(x.Value));
         }
         
+        public static Fad Max(Fad lhs, Fad rhs)
+        {
+            return new Fad(Math.Max(lhs.Value, rhs.Value), lhs.Value > rhs.Value ? lhs.Derivative : rhs.Derivative);
+        }
+
+        public static Fad Min(Fad lhs, Fad rhs)
+        {
+            return new Fad(Math.Min(lhs.Value, rhs.Value), lhs.Value < rhs.Value ? lhs.Derivative : rhs.Derivative);
+        }
     }
 }
